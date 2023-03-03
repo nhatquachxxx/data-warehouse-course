@@ -1,4 +1,4 @@
-# Paul Quach Data Warehouse Project
+# Paul Quach's Data Warehouse Project
 
 Hello! I'm Paul Quach, and this is my project to show my data warehouse skills.
 
