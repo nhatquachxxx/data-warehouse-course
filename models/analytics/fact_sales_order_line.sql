@@ -33,5 +33,12 @@ WITH fact_sales_order_line__source AS (
 )
 
 SELECT 
-  *
+  sales_order_line_key
+  , product_key
+  , quantity
+  , unit_price
+  , tax_rate
+  , gross_amount
+  , tax_amount
+  , net_amount
 FROM fact_sales_order_line__calculated_measure
