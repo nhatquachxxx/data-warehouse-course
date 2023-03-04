@@ -21,11 +21,7 @@ WITH fact_sales_order_line__source AS (
 
 , fact_sales_order_line__calculated_measure AS (
   SELECT 
-    sales_order_line_key
-    , product_key
-    , quantity
-    , unit_price
-    , tax_rate
+    *
     , quantity * unit_price AS gross_amount
     , unit_price * quantity *tax_rate AS tax_amount
     , (quantity * unit_price) - (unit_price * quantity * tax_rate) AS net_amount -- net_amount = gross_amount - tax_amount
