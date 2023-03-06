@@ -5,7 +5,7 @@ WITH dim_product__source AS(
 )
 
 -- 2nd layer, select specific fields and perform CAST
-, dim_product__rename_cast AS (
+, dim_product__rename_recast AS (
   SELECT 
       CAST(stock_item_id AS INT) AS product_key
     , CAST(stock_item_name AS string)AS product_name
@@ -15,4 +15,4 @@ WITH dim_product__source AS(
 
 SELECT 
   * 
-FROM dim_product__rename_cast
+FROM dim_product__rename_recast
