@@ -27,6 +27,16 @@ WITH dim_product__source AS(
   FROM dim_product__rename_recast
 )
 
+, dim_product__replace_null AS (
+  SELECT
+    product_key
+    , product_name
+    , supplier_key
+    , IFNULL(brand_name, 'Undefined') AS brand_name
+    , is_chiller_stock
+  FROM dim_product__convert_boolean
+)
+
 SELECT
   dim_product.product_key
   , dim_product.product_name
@@ -34,6 +44,6 @@ SELECT
   , dim_product.supplier_key
   , dim_supplier.supplier_name
   , dim_product.is_chiller_stock
-FROM dim_product__convert_boolean AS dim_product
+FROM dim_product__replace_null AS dim_product
 LEFT JOIN {{ ref('dim_supplier') }} AS dim_supplier
   ON dim_product.supplier_key = dim_supplier.supplier_key
