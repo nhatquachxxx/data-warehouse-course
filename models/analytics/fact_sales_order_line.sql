@@ -23,7 +23,7 @@ WITH fact_sales_order_line__source AS (
     , unit_price
     , tax_rate
     , quantity * unit_price AS gross_amount
-    , unit_price * quantity *tax_rate AS tax_amount
+    , unit_price * quantity * tax_rate AS tax_amount
     , (quantity * unit_price) - (unit_price * quantity * tax_rate) AS net_amount -- net_amount = gross_amount - tax_amount
   FROM fact_sales_order_line__rename_recast
 )
@@ -32,6 +32,7 @@ SELECT
   fact_order_line.sales_order_line_key
   , fact_order_line.sales_order_key
   , fact_order.customer_key
+  , fact_order.picked_by_person_key
   , fact_order_line.product_key
   , fact_order_line.quantity
   , fact_order_line.unit_price

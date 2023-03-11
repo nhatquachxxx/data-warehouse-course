@@ -42,7 +42,7 @@ SELECT
   , dim_product.product_name
   , dim_product.brand_name
   , dim_product.supplier_key
-  , dim_supplier.supplier_name
+  , IFNULL(dim_supplier.supplier_name, 'Invalid') AS supplier_name -- replace null inside joining tables
   , dim_product.is_chiller_stock
 FROM dim_product__replace_null AS dim_product
 LEFT JOIN {{ ref('dim_supplier') }} AS dim_supplier
