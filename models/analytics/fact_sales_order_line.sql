@@ -32,7 +32,7 @@ SELECT
   fact_order_line.sales_order_line_key
   , fact_order_line.sales_order_key
   , fact_order.customer_key
-  , fact_order.picked_by_person_key
+  , IFNULL(fact_order.picked_by_person_key, -1) AS picked_by_person_key
   , fact_order_line.product_key
   , fact_order_line.quantity
   , fact_order_line.unit_price
