@@ -37,6 +37,7 @@ SELECT
   , fact_order_line.quantity
   , fact_order_line.unit_price
   , fact_order_line.tax_rate
+  , fact_order.order_date
   , fact_order_line.gross_amount
   , fact_order_line.tax_amount
   , fact_order_line.net_amount
