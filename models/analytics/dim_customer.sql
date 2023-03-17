@@ -8,9 +8,10 @@ WITH dim_customer__source AS (
   SELECT
     CAST(customer_id AS INT) AS customer_key
     , CAST(customer_name AS STRING) AS customer_name
+    , CAST(is_on_credit_hold AS BOOLEAN) AS is_on_credit_hold_boolean
     , CAST(customer_category_id AS INT) AS customer_category_key
     , CAST(buying_group_id AS INT) AS buying_group_key
-    , CAST(is_on_credit_hold AS BOOLEAN) AS is_on_credit_hold_boolean
+
   FROM dim_customer__source
 )
 
@@ -29,11 +30,11 @@ WITH dim_customer__source AS (
 SELECT 
   dim_customer.customer_key
   , dim_customer.customer_name
+  , dim_customer.is_on_credit_hold
   , dim_customer.customer_category_key
   , IFNULL(dim_customer_category.customer_category_name, 'Invalid') AS customer_category_name
   , dim_customer.buying_group_key
   , IFNULL(dim_buying_group.buying_group_name, 'Invalid') AS buying_group_name
-  , dim_customer.is_on_credit_hold
 FROM dim_customer__convert_boolean AS dim_customer
 LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
   ON dim_customer.customer_category_key = dim_customer_category.customer_category_key

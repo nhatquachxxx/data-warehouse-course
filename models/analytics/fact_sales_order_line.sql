@@ -32,12 +32,12 @@ SELECT
   fact_order_line.sales_order_line_key
   , fact_order_line.sales_order_key
   , fact_order.customer_key
-  , IFNULL(fact_order.picked_by_person_key, -1) AS picked_by_person_key
   , fact_order_line.product_key
+  , IFNULL(fact_order.picked_by_person_key, -1) AS picked_by_person_key
+  , fact_order.order_date
   , fact_order_line.quantity
   , fact_order_line.unit_price
   , fact_order_line.tax_rate
-  , fact_order.order_date
   , fact_order_line.gross_amount
   , fact_order_line.tax_amount
   , fact_order_line.net_amount
