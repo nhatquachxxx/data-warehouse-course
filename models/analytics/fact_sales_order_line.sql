@@ -8,9 +8,12 @@ WITH fact_sales_order_line__source AS (
     CAST(order_line_id AS INT) AS sales_order_line_key
     , CAST(order_id AS INT) AS sales_order_key
     , CAST(stock_item_id AS INT) AS product_key
+    , CAST(package_type_id AS INT) AS package_type_key
+    , CAST(description AS STRING) AS description
     , CAST(quantity AS INT) AS quantity
     , CAST(unit_price AS NUMERIC) AS unit_price
     , CAST(tax_rate AS NUMERIC) AS tax_rate
+    , CAST(picking_completed_when AS TIMESTAMP) AS picking_completed_when
   FROM fact_sales_order_line__source
 )
 
@@ -19,12 +22,15 @@ WITH fact_sales_order_line__source AS (
     sales_order_line_key
     , sales_order_key
     , product_key
+    , package_type_key
+    , description
     , quantity
     , unit_price
     , tax_rate
     , quantity * unit_price AS gross_amount
     , unit_price * quantity * tax_rate AS tax_amount
     , (quantity * unit_price) - (unit_price * quantity * tax_rate) AS net_amount -- net_amount = gross_amount - tax_amount
+    , picking_completed_when
   FROM fact_sales_order_line__rename_recast
 )
 
@@ -33,6 +39,7 @@ SELECT
   , fact_order_line.sales_order_key
   , fact_order.customer_key
   , fact_order_line.product_key
+  , fact_order_line.package_type_key
   , IFNULL(fact_order.picked_by_person_key, -1) AS picked_by_person_key
   , fact_order.order_date
   , fact_order_line.quantity
