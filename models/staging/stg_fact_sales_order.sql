@@ -9,7 +9,7 @@ WITH stg_fact_sales_order__source AS (
     CAST(order_id AS INT) AS sales_order_key
     , CAST(is_undersupply_backordered AS BOOLEAN) AS is_undersupply_backordered_boolean
     , CAST(backorder_order_id AS INT) AS backorder_order_key
-    , CAST(customer_purchase_order_number AS INT) AS customer_purchase_order_number
+    , CAST(customer_purchase_order_number AS STRING) AS customer_purchase_order_number
     , CAST(customer_id AS INT) AS customer_key
     , CAST(picked_by_person_id AS INT) AS picked_by_person_key
     , CAST(salesperson_person_id AS INT) AS salesperson_person_key
@@ -32,12 +32,12 @@ WITH stg_fact_sales_order__source AS (
   FROM stg_fact_sales_order__rename_recast
 )
 
-, stg_fact_sales_order__handle_nul AS (
+, stg_fact_sales_order__handle_null AS (
   SELECT
     sales_order_key
     , is_undersupply_backordered
-    , backorder_order_key
-    , customer_purchase_order_number
+    , backorder_order_key -- How to handle Null for backorder_order_key
+    , IFNULL(customer_purchase_order_number, 'Undefined') AS customer_purchase_order_number
     , customer_key
     , IFNULL(picked_by_person_key, 0) AS picked_by_person_key
     , salesperson_person_key
@@ -47,3 +47,7 @@ WITH stg_fact_sales_order__source AS (
     , order_picking_completed_when
   FROM stg_fact_sales_order__convert_boolean
 )
+
+SELECT
+  *
+FROM stg_fact_sales_order__handle_null
