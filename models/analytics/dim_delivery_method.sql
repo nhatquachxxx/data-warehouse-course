@@ -11,7 +11,19 @@ WITH dim_delivery_method__source AS (
   FROM dim_delivery_method__source
 )
 
+, dim_delivery_method__add_undefined AS (
+  SELECT
+    delivery_method_key
+    , delivery_method_name
+  FROM dim_delivery_method__rename_recast
+
+  UNION ALL
+  SELECT
+    0 AS delivery_method_key
+    , 'Undefined' AS delivery_method_name
+)
+
 SELECT
   delivery_method_key
   , delivery_method_name
-FROM dim_delivery_method__rename_recast
+FROM dim_delivery_method__add_undefined 
