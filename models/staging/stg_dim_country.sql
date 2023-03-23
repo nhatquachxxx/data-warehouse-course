@@ -15,6 +15,26 @@ WITH dim_country__resource AS (
   FROM dim_country__resource
 )
 
+, dim_country__add_undefined AS (
+  SELECT
+    country_key
+    , country_name
+    , country_type
+    , continent_name
+    , region_name
+    , subregion_name
+  FROM dim_country__rename_recast
+
+  UNION ALL 
+  SELECT
+    0 AS country_key
+    , 'Undefined' AS country_name
+    , 'Undefined' AS country_type
+    , 'Undefined' AS continent_name
+    , 'Undefined' AS region_name
+    , 'Undefined' AS subregion_name
+)
+
 SELECT
   country_key
   , country_name
@@ -22,4 +42,4 @@ SELECT
   , continent_name
   , region_name
   , subregion_name
-FROM dim_country__rename_recast
+FROM dim_country__add_undefined
