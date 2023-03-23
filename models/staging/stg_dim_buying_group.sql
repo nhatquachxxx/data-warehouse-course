@@ -11,7 +11,19 @@ WITH dim_buying_group__source AS (
   FROM dim_buying_group__source
 )
 
-SELECT 
+, dim_buying_group__add_undefined AS (
+  SELECT 
+    buying_group_key
+    , buying_group_name
+  FROM dim_buying_group__recast_rename
+
+  UNION ALL
+  SELECT
+    0 AS buying_group_key
+    , buying_group_name
+)
+
+SELECT
   buying_group_key
   , buying_group_name
-FROM dim_buying_group__recast_rename
+FROM dim_buying_group__add_undefined
