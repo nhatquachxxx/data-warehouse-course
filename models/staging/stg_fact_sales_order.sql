@@ -36,16 +36,43 @@ WITH stg_fact_sales_order__source AS (
   SELECT
     sales_order_key
     , is_undersupply_backordered
-    , backorder_order_key -- How to handle Null for backorder_order_key
+    , IFNULL(backorder_order_key, 0) AS backorder_order_key -- How to handle Null for backorder_order_key
     , IFNULL(customer_purchase_order_number, 'Undefined') AS customer_purchase_order_number
-    , customer_key
+    , IFNULL(customer_key, 0) AS customer_key
     , IFNULL(picked_by_person_key, 0) AS picked_by_person_key
-    , salesperson_person_key
-    , contact_person_key
+    , IFNULL(salesperson_person_key, 0) AS salesperson_person_key
+    , IFNULL(contact_person_key, 0) AS contact_person_key
     , order_date
     , expected_delivery_date
     , order_picking_completed_when
   FROM stg_fact_sales_order__convert_boolean
+
+  UNION ALL
+  SELECT
+    0 AS sales_order_key
+    , 'Undefined' AS is_undersupply_backordered
+    , 0 AS backorder_order_key
+    , 'Undefined' AS customer_purchase_order_number
+    , 0 AS customer_key
+    , 0 AS picked_by_person_key
+    , 0 AS salesperson_person_key
+    , 0 AS contact_person_key
+    , NULL AS order_date
+    , NULL AS expected_delivery_date
+    , NULL AS order_picking_completed_when
+  UNION ALL
+  SELECT
+    -1 AS sales_order_key
+    , 'Invalid' AS is_undersupply_backordered
+    , -1 AS backorder_order_key
+    , 'Invalid' AS customer_purchase_order_number
+    , -1 AS customer_key
+    , -1 AS picked_by_person_key
+    , -1 AS salesperson_person_key
+    , -1 AS contact_person_key
+    , NULL AS order_date
+    , NULL AS expected_delivery_date
+    , NULL AS order_picking_completed_when
 )
 
 SELECT
