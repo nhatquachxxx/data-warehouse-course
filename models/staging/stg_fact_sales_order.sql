@@ -46,7 +46,23 @@ WITH stg_fact_sales_order__source AS (
     , expected_delivery_date
     , order_picking_completed_when
   FROM stg_fact_sales_order__convert_boolean
+)
 
+, stg_fact_sales_order__add_undefined AS (
+  SELECT
+    sales_order_key
+    , is_undersupply_backordered
+    , backorder_order_key
+    , customer_purchase_order_number
+    , customer_key
+    , picked_by_person_key
+    , salesperson_person_key
+    , contact_person_key
+    , order_date
+    , expected_delivery_date
+    , order_picking_completed_when
+  FROM stg_fact_sales_order__handle_null
+  
   UNION ALL
   SELECT
     0 AS sales_order_key
@@ -60,6 +76,7 @@ WITH stg_fact_sales_order__source AS (
     , NULL AS order_date
     , NULL AS expected_delivery_date
     , NULL AS order_picking_completed_when
+
   UNION ALL
   SELECT
     -1 AS sales_order_key

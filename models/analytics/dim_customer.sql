@@ -87,9 +87,9 @@ WITH dim_customer__source AS (
     , 'Undefined' AS customer_name
     , 'Undefined' AS is_statement_sent
     , 'Undefined' AS is_on_credit_hold
-    , 0 AS payment_days
-    , 0 AS credit_limit
-    , 0 AS standard_discount_percentage
+    , NULL AS payment_days
+    , NULL AS credit_limit
+    , NULL AS standard_discount_percentage
     , 0 AS bill_to_customer_key
     , 0 AS customer_category_key
     , 0 AS buying_group_key
@@ -98,10 +98,27 @@ WITH dim_customer__source AS (
     , 0 AS delivery_method_key
     , 0 AS delivery_city_key
     , NULL AS account_opened_date
+
+  UNION ALL
+  SELECT
+    -1 AS customer_key
+    , 'Invalid' AS customer_nam
+    , 'Invalid' AS is_statement
+    , 'Invalid' AS is_on_credit
+    , NULL AS payment_days
+    , NULL AS credit_limit
+    , NULL AS standard_discount_p
+    , -1 AS bill_to_customer_key
+    , -1 AS customer_category_key
+    , -1 AS buying_group_key
+    , -1 AS primary_contact_person
+    , -1 AS alternate_contact_pers
+    , -1 AS delivery_method_key
+    , -1 AS delivery_city_key
+    , NULL AS account_opened_date
 )
 
-, dim_test AS (
-SELECT 
+SELECT
   dim_customer.customer_key
   , dim_customer.customer_name
   , dim_customer.is_statement_sent
@@ -123,18 +140,17 @@ SELECT
   , IFNULL(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
   , dim_customer.delivery_city_key
   , IFNULL(dim_location.city_name, 'Invalid') AS delivery_city_name
-  , dim_location.state_province_key AS delivery_state_province_key -- Nếu một key trong dimension có Null, vậy có cần khử Null của key không?
+  , IFNULL(dim_location.state_province_key, -1) AS delivery_state_province_key -- Nếu một key trong dimension có Null, vậy có cần khử Null của key không?
   , IFNULL(dim_location.state_province_name, 'Invalid') AS delivery_state_province_name
   , IFNULL(dim_location.sales_territory, 'Invalid') AS delivery_sales_territory
-  , dim_location.country_key AS delivery_country_key
+  , IFNULL(dim_location.country_key, -1) AS delivery_country_key
   , IFNULL(dim_location.country_name, 'Invalid') AS delivery_country_name
   , IFNULL(dim_location.country_type, 'Invalid') AS delivery_country_type
   , IFNULL(dim_location.continent_name, 'Invalid') AS delivery_continent_name
   , IFNULL(dim_location.region_name, 'Invalid') AS delivery_region_name
   , IFNULL(dim_location.subregion_name, 'Invalid') AS delivery_subregion_name
   , dim_customer.account_opened_date
-FROM 
-  dim_customer__add_undefined AS dim_customer
+FROM dim_customer__add_undefined AS dim_customer
 
 LEFT JOIN dim_customer__add_undefined AS dim_customer_bill_to
   ON dim_customer.bill_to_customer_key = dim_customer_bill_to.customer_key
@@ -154,9 +170,5 @@ LEFT JOIN {{ ref('dim_person') }} AS dim_person_alternate
 LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
   ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
 
-LEFT JOIN {{ ref('dim_location') }} AS dim_location
+LEFT JOIN {{ ref('dim_city') }} AS dim_location
   ON dim_customer.delivery_city_key = dim_location.city_key
-)
-SELECT
-  *
-FROM dim_test

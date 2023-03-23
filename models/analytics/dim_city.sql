@@ -47,5 +47,5 @@ WITH dim_city__source AS (
     , IFNULL(dim_state_province.region_name, 'Invalid') AS region_name
     , IFNULL(dim_state_province.subregion_name, 'Invalid') AS subregion_name
   FROM dim_city__add_undefined AS dim_city
-  LEFT JOIN {{ ref('stg_dim_state_province')}} AS dim_state_province
+  LEFT JOIN {{ ref('stg_dim_state_province') }} AS dim_state_province
     ON dim_city.state_province_key = dim_state_province.state_province_key

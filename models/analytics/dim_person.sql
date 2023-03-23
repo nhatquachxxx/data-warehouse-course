@@ -48,7 +48,7 @@ WITH dim_person__source AS(
   FROM dim_person__rename_recast
 )
 
-, dim_person__add_undefined_value AS (
+, dim_person__add_undefined AS (
   SELECT
     person_key
     , full_name
@@ -78,28 +78,6 @@ WITH dim_person__source AS(
     , 'Invalid' AS is_system_user
     , 'Invalid' AS is_employee
     , 'Invalid' AS is_salesperson
-)
-
-, dim_person__add_undefined AS (
-  SELECT
-    person_key
-    , full_name
-    , preferred_name
-    , is_permitted_to_logon
-    , is_system_user
-    , is_employee
-    , is_salesperson
-  FROM dim_person__add_undefined_value
-
-  UNION ALL
-  SELECT
-    0 AS person_key
-    , 'Undefined' AS full_name
-    , 'Undefined' AS preferred_name
-    , 'Undefined' AS is_permitted_to_logon
-    , 'Undefined' AS is_system_user
-    , 'Undefined' AS is_employee
-    , 'Undefined' AS is_salesperson
 )
 
 SELECT

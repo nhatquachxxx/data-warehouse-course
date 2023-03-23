@@ -11,7 +11,19 @@ WITH dim_package_type__source AS (
   FROM dim_package_type__source
 )
 
+, dim_package_type__add_undefined AS (
+  SELECT
+    package_type_key
+    , package_type_name
+  FROM dim_package_type__recast_rename
+
+  UNION ALL
+  SELECT
+    0 AS package_type_key
+    , 'Undefined' AS package_type_name
+)
+
 SELECT
   package_type_key
   , package_type_name
-FROM dim_package_type__recast_rename
+FROM dim_package_type__add_undefined
