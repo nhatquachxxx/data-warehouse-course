@@ -20,7 +20,7 @@ WITH dim_buying_group__source AS (
   UNION ALL
   SELECT
     0 AS buying_group_key
-    , buying_group_name
+    , 'Undefined' buying_group_name
 )
 
 SELECT
