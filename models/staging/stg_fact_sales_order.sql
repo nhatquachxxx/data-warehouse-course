@@ -93,5 +93,15 @@ WITH stg_fact_sales_order__source AS (
 )
 
 SELECT
-  *
+  sales_order_key
+  , is_undersupply_backordered
+  , customer_purchase_order_number
+  , backorder_order_key
+  , customer_key
+  , picked_by_person_key
+  , salesperson_person_key
+  , contact_person_key
+  , order_date
+  , expected_delivery_date
+  , order_picking_completed_when
 FROM stg_fact_sales_order__handle_null

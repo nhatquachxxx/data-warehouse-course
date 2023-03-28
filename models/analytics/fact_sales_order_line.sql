@@ -17,6 +17,20 @@ WITH fact_sales_order_line__source AS (
   FROM fact_sales_order_line__source
 )
 
+, fact_sales_order_line__handle_null AS (
+  SELECT
+    sales_order_line_key
+    , IFNULL(sales_order_key, 0) AS sales_order_key
+    , IFNULL(product_key, 0) AS product_key
+    , IFNULL(package_type_key, 0) AS package_type_key
+    , IFNULL(description, 'Undefined') AS description
+    , quantity
+    , unit_price
+    , tax_rate
+    , picking_completed_when
+  FROM fact_sales_order_line__rename_recast
+)
+
 , fact_sales_order_line__calculated_measure AS (
   SELECT 
     sales_order_line_key
@@ -31,10 +45,9 @@ WITH fact_sales_order_line__source AS (
     , unit_price * quantity * tax_rate AS tax_amount
     , (quantity * unit_price) - (unit_price * quantity * tax_rate) AS net_amount -- net_amount = gross_amount - tax_amount
     , picking_completed_when
-  FROM fact_sales_order_line__rename_recast
+  FROM fact_sales_order_line__handle_null
 )
 
-, fact_order_line__flatten_handle_null AS (
 SELECT
   fact_order_line.sales_order_line_key
   , IFNULL(fact_order.is_undersupply_backordered, 'Invalid') AS is_undersupply_backordered
@@ -61,8 +74,3 @@ SELECT
 FROM fact_sales_order_line__calculated_measure AS fact_order_line
 LEFT JOIN {{ ref('stg_fact_sales_order') }} AS fact_order
   ON fact_order_line.sales_order_key = fact_order.sales_order_key
-)
-
-SELECT
-  *
-FROM fact_order_line__flatten_handle_null

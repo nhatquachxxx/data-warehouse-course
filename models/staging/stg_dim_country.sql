@@ -15,6 +15,17 @@ WITH dim_country__resource AS (
   FROM dim_country__resource
 )
 
+, dim_country__handle_null AS (
+  SELECT
+    country_key
+    , country_name
+    , IFNULL(country_type, 'Undefined') AS country_type
+    , IFNULL(continent_name, 'Undefined') AS continent_name
+    , IFNULL(region_name, 'Undefined') AS region_name
+    , IFNULL(subregion_name, 'Undefined') AS subregion_name
+  FROM dim_country__rename_recast
+)
+
 , dim_country__add_undefined AS (
   SELECT
     country_key
@@ -23,7 +34,7 @@ WITH dim_country__resource AS (
     , continent_name
     , region_name
     , subregion_name
-  FROM dim_country__rename_recast
+  FROM dim_country__handle_null
 
   UNION ALL 
   SELECT

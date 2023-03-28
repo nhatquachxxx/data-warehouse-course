@@ -20,7 +20,7 @@ WITH dim_person__source AS(
   SELECT
     person_key
     , full_name
-    , preferred_name
+    , IFNULL(preferred_name, 'Undefined') AS preferred_name
     , CASE
         WHEN is_permitted_to_logon_boolean IS TRUE THEN 'Permitted to Logon'
         WHEN is_permitted_to_logon_boolean IS FALSE THEN ' Not Permitted to Logon'
