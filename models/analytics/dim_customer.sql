@@ -140,7 +140,7 @@ SELECT
   , IFNULL(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
   , dim_customer.delivery_city_key
   , IFNULL(dim_location.city_name, 'Invalid') AS delivery_city_name
-  , IFNULL(dim_location.state_province_key, -1) AS delivery_state_province_key -- Nếu một key trong dimension có Null, vậy có cần khử Null của key không?
+  , IFNULL(dim_location.state_province_key, -1) AS delivery_state_province_key
   , IFNULL(dim_location.state_province_name, 'Invalid') AS delivery_state_province_name
   , IFNULL(dim_location.sales_territory, 'Invalid') AS delivery_sales_territory
   , IFNULL(dim_location.country_key, -1) AS delivery_country_key

@@ -21,6 +21,11 @@ WITH dim_delivery_method__source AS (
   SELECT
     0 AS delivery_method_key
     , 'Undefined' AS delivery_method_name
+
+  UNION ALL
+  SELECT
+    -1 AS delivery_method_key
+    , 'Invalid' AS delivery_method_name
 )
 
 SELECT

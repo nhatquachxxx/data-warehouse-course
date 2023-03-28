@@ -33,6 +33,15 @@ WITH dim_country__resource AS (
     , 'Undefined' AS continent_name
     , 'Undefined' AS region_name
     , 'Undefined' AS subregion_name
+
+  UNION ALL 
+  SELECT
+    -1 AS country_key
+    , 'Invalid' AS country_name
+    , 'Invalid' AS country_type
+    , 'Invalid' AS continent_name
+    , 'Invalid' AS region_name
+    , 'Invalid' AS subregion_name
 )
 
 SELECT

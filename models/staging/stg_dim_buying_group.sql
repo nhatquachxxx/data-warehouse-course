@@ -21,6 +21,11 @@ WITH dim_buying_group__source AS (
   SELECT
     0 AS buying_group_key
     , 'Undefined' buying_group_name
+  
+  UNION ALL
+  SELECT
+    -1 AS buying_group_key
+    , 'Invalid' AS buying_group_name
 )
 
 SELECT

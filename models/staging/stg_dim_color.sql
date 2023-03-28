@@ -21,6 +21,11 @@ WITH dim_color__source AS (
   SELECT
     0 AS color_key
     , 'Undefined' AS color_name
+  
+  UNION ALL
+  SELECT
+    -1 AS color_key
+    , 'Invalid' AS color_name
 )
 
 SELECT

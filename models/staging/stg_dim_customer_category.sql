@@ -11,7 +11,7 @@ WITH dim_customer_category__source AS(
   FROM dim_customer_category__source
 )
 
-,dim_customer_category__add_undefined AS (
+, dim_customer_category__add_undefined AS (
   SELECT
     customer_category_key
     , customer_category_name
@@ -21,6 +21,11 @@ WITH dim_customer_category__source AS(
   SELECT
     0 AS customer_category_key
     , 'Undefined' AS customer_category_name
+  
+  UNION ALL
+  SELECT
+    -1 AS customer_category_key
+    , 'Invalid' AS customer_category_name
 )
 
 SELECT

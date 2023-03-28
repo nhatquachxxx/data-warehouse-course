@@ -51,6 +51,17 @@ WITH dim_supplier__source AS (
     , 0 AS alternate_contact_person_key
     , 0 AS delivery_method_key
     , 0 AS delivery_city_key
+  
+  UNION ALL
+  SELECT
+    -1 AS supplier_key
+    , 'Invalid' AS supplier_name
+    , NULL AS payment_days
+    , -1 AS supplier_category_key
+    , -1 AS primary_contact_person_key
+    , -1 AS alternate_contact_person_key
+    , -1 AS delivery_method_key
+    , -1 AS delivery_city_key
 )
 
 SELECT

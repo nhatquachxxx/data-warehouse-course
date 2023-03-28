@@ -36,6 +36,13 @@ WITH dim_state_province__source AS (
   , 'Undefined' AS state_province_name
   , 'Undefined' AS sales_territory
   , 0 AS country_key
+
+  UNION ALL
+  SELECT
+  -1 AS state_province_key
+  , 'Invalid' AS state_province_name
+  , 'Invalid' AS sales_territory
+  , -1 AS country_key
 )
 
 SELECT
