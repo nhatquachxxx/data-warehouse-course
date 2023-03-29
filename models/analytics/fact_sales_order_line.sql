@@ -53,13 +53,13 @@ SELECT
   , IFNULL(fact_order.is_undersupply_backordered, 'Invalid') AS is_undersupply_backordered
   , IFNULL(fact_order_line.sales_order_key, -1) AS sales_order_key
   , IFNULL(fact_order.backorder_order_key, -1) AS backorder_order_key
-  , IFNULL(fact_order.customer_purchase_order_number, 'Invalid') AS customer_purchase_order_number
   , IFNULL(fact_order.customer_key, -1) AS customer_key
   , IFNULL(fact_order_line.product_key, -1) AS product_key
   , IFNULL(fact_order_line.package_type_key, -1) AS package_type_key
   , IFNULL(fact_order.picked_by_person_key, -1) AS picked_by_person_key
   , IFNULL(fact_order.salesperson_person_key, -1) AS salesperson_person_key
   , IFNULL(fact_order.contact_person_key, -1) AS contact_person_key
+  , IFNULL(fact_order.customer_purchase_order_number, 'Invalid') AS customer_purchase_order_number
   , IFNULL(fact_order_line.description, 'Undefined') AS description
   , fact_order_line.quantity
   , fact_order_line.unit_price
