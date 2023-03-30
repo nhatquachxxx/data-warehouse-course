@@ -69,24 +69,24 @@ SELECT
   , dim_supplier.supplier_name
   , dim_supplier.payment_days
   , dim_supplier.supplier_category_key
-  , dim_supplier_category.supplier_category_name
+  , IFNULL(dim_supplier_category.supplier_category_name, 'Invalid') AS supplier_category_name
   , dim_supplier.primary_contact_person_key
-  , dim_person_primary_contact.full_name AS primary_contact_full_name
+  , IFNULL(dim_person_primary_contact.full_name, 'Invalid') AS primary_contact_full_name
   , dim_supplier.alternate_contact_person_key
-  , dim_person_alternate_contact.full_name AS alternate_contact_full_name
+  , IFNULL(dim_person_alternate_contact.full_name, 'Invalid') AS alternate_contact_full_name
   , dim_supplier.delivery_method_key
-  , dim_delivery_method.delivery_method_name
+  , IFNULL(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
   , dim_supplier.delivery_city_key
-  , dim_city.city_name
-  , dim_city.state_province_key
-  , dim_city.state_province_name
-  , dim_city.sales_territory
-  , dim_city.country_key
-  , dim_city.country_name
-  , dim_city.country_type
-  , dim_city.continent_name
-  , dim_city.region_name
-  , dim_city.subregion_name
+  , IFNULL(dim_city.city_name, 'Invalid') AS city_name
+  , IFNULL(dim_city.state_province_key, -1) AS state_province_key
+  , IFNULL(dim_city.state_province_name, 'Invalid') AS state_province_name
+  , IFNULL(dim_city.sales_territory, 'Invalid') AS sales_territory
+  , IFNULL(dim_city.country_key, -1) AS country_key
+  , IFNULL(dim_city.country_name, 'Invalid') AS country_name
+  , IFNULL(dim_city.country_type, 'Invalid') AS country_type
+  , IFNULL(dim_city.continent_name, 'Invalid') AS continent_name
+  , IFNULL(dim_city.region_name, 'Invalid') AS region_name
+  , IFNULL(dim_city.subregion_name, 'Invalid') AS subregion_name
 FROM dim_supplier__add_undefined AS dim_supplier
 
 LEFT JOIN {{ ref('stg_dim_supplier_category') }} AS dim_supplier_category
