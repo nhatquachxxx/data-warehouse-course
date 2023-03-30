@@ -139,16 +139,16 @@ SELECT
   , dim_customer.delivery_method_key
   , IFNULL(dim_delivery_method.delivery_method_name, 'Invalid') AS delivery_method_name
   , dim_customer.delivery_city_key
-  , IFNULL(dim_city.city_name, 'Invalid') AS delivery_city_name
-  , IFNULL(dim_city.state_province_key, -1) AS delivery_state_province_key
-  , IFNULL(dim_city.state_province_name, 'Invalid') AS delivery_state_province_name
-  , IFNULL(dim_city.sales_territory, 'Invalid') AS delivery_sales_territory
-  , IFNULL(dim_city.country_key, -1) AS delivery_country_key
-  , IFNULL(dim_city.country_name, 'Invalid') AS delivery_country_name
-  , IFNULL(dim_city.country_type, 'Invalid') AS delivery_country_type
-  , IFNULL(dim_city.continent_name, 'Invalid') AS delivery_continent_name
-  , IFNULL(dim_city.region_name, 'Invalid') AS delivery_region_name
-  , IFNULL(dim_city.subregion_name, 'Invalid') AS delivery_subregion_name
+  , IFNULL(dim_city_delivery.city_name, 'Invalid') AS delivery_city_name
+  , IFNULL(dim_city_delivery.state_province_key, -1) AS delivery_state_province_key
+  , IFNULL(dim_city_delivery.state_province_name, 'Invalid') AS delivery_state_province_name
+  , IFNULL(dim_city_delivery.sales_territory, 'Invalid') AS delivery_sales_territory
+  , IFNULL(dim_city_delivery.country_key, -1) AS delivery_country_key
+  , IFNULL(dim_city_delivery.country_name, 'Invalid') AS delivery_country_name
+  , IFNULL(dim_city_delivery.country_type, 'Invalid') AS delivery_country_type
+  , IFNULL(dim_city_delivery.continent_name, 'Invalid') AS delivery_continent_name
+  , IFNULL(dim_city_delivery.region_name, 'Invalid') AS delivery_region_name
+  , IFNULL(dim_city_delivery.subregion_name, 'Invalid') AS delivery_subregion_name
   , dim_customer.account_opened_date
 FROM dim_customer__add_undefined AS dim_customer
 
@@ -170,5 +170,5 @@ LEFT JOIN {{ ref('dim_person') }} AS dim_person_alternate
 LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
   ON dim_customer.delivery_method_key = dim_delivery_method.delivery_method_key
 
-LEFT JOIN {{ ref('dim_city') }} AS dim_city
-  ON dim_customer.delivery_city_key = dim_city.city_key
+LEFT JOIN {{ ref('dim_city') }} AS dim_city_delivery
+  ON dim_customer.delivery_city_key = dim_city_delivery.city_key
