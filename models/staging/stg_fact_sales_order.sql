@@ -24,8 +24,8 @@ WITH stg_fact_sales_order__source AS (
   SELECT
     *
     , CASE
-      WHEN is_undersupply_backordered_boolean IS TRUE THEN 'Backordered'
-      WHEN is_undersupply_backordered_boolean IS FALSE THEN 'Not Backordered'
+      WHEN is_undersupply_backordered_boolean IS TRUE THEN 'Undersupply Backordered'
+      WHEN is_undersupply_backordered_boolean IS FALSE THEN 'Not Undersupply Backordered'
       WHEN is_undersupply_backordered_boolean IS NULL THEN 'Undefined'
       ELSE 'Invalid' END
     AS is_undersupply_backordered
