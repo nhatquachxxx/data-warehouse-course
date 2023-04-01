@@ -24,9 +24,9 @@ SELECT
   dim_date.date
   , dim_date.day_of_week
   , dim_date.day_of_week_short
-  , CASE 
-      WHEN day_of_week_short IN ('Sat', 'Sun') THEN 'Weekend'
-      WHEN day_of_week_short IN ('Mon', 'Tue', 'Wed', 'Thu', 'Fri') THEN 'Weekday'
+  , CASE
+      WHEN dim_date.day_of_week_short IN ('Sat', 'Sun') THEN 'Weekend'
+      WHEN dim_date.day_of_week_short IN ('Mon', 'Tue', 'Wed', 'Thu', 'Fri') THEN 'Weekday'
       ELSE 'Invalid' END
     AS is_weekday_or_weekend
   , dim_date.week_number

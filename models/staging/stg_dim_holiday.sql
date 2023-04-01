@@ -13,3 +13,14 @@ WITH dim_holiday__source AS (
     , CAST(description AS string) AS description
   FROM dim_holiday__source
 )
+
+SELECT
+  holiday_date
+  , CASE
+      WHEN holiday_name = 'Tet holiday' THEN 'Tet Holiday'
+      ELSE holiday_name END
+    AS holiday_name
+  , holiday_type
+  , country_name
+  , description
+FROM dim_holiday__rename_recast
