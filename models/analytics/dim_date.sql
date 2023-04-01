@@ -21,20 +21,28 @@ WITH dim_date__generate AS (
 )
 
 SELECT
-  date
-  , day_of_week
-  , day_of_week_short
+  dim_date.date
+  , dim_date.day_of_week
+  , dim_date.day_of_week_short
   , CASE 
       WHEN day_of_week_short IN ('Sat', 'Sun') THEN 'Weekend'
       WHEN day_of_week_short IN ('Mon', 'Tue', 'Wed', 'Thu', 'Fri') THEN 'Weekday'
       ELSE 'Invalid' END
     AS is_weekday_or_weekend
-  , week_number
-  , year_week
-  , month_name
-  , month
-  , year_month
-  , quarter
-  , year_quarter
-  , year
-FROM dim_date__extract_components
+  , dim_date.week_number
+  , dim_date.year_week
+  , dim_date.month_name
+  , dim_date.month
+  , dim_date.year_month
+  , dim_date.quarter
+  , dim_date.year_quarter
+  , dim_date.year
+  , CASE
+      WHEN dim_holiday.holiday_date IS NOT NULL THEN 'Holiday'
+      WHEN dim_holiday.holiday_date IS NULL THEN 'Not Holiday'
+      ELSE 'Invalid' END
+    AS is_holiday
+  , IFNULL(dim_holiday.holiday_name, 'Undefined') AS holiday_name
+FROM dim_date__extract_components AS dim_date
+LEFT JOIN {{ ref('stg_dim_holiday') }} AS dim_holiday
+  ON dim_date.date = dim_holiday.holiday_date
