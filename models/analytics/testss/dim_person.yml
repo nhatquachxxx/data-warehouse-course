@@ -6,6 +6,7 @@ models:
       - name: person_key
         tests:
           - not_null
+          - unique
 
       - name: full_name
         tests:

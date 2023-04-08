@@ -6,6 +6,7 @@ models:
       - name: date
         tests:
           - not_null
+          - unique
 
       - name: day_of_week
         tests:

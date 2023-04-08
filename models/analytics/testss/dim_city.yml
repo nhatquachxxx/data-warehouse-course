@@ -6,6 +6,8 @@ models:
       - name: city_key
         tests:
           - not_null
+          - unique
+
       - name: city_name
         tests:
           - not_null

@@ -6,6 +6,7 @@ models:
       - name: package_type_key
         tests:
           - not_null
+          - unique
 
       - name: package_type_name
         tests:

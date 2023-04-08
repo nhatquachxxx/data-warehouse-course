@@ -7,6 +7,7 @@ models:
       - name: product_key
         tests:
           - not_null
+          - unique
   
       - name: product_name
         tests:
