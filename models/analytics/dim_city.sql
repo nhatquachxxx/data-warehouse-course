@@ -32,6 +32,12 @@ WITH dim_city__source AS (
     0 AS city_key
     , 'Undefined' AS city_name
     , 0 AS state_province_key
+
+  UNION ALL
+  SELECT
+    -1 AS city_key
+    , 'Invalid' AS city_name
+    , 0 AS state_province_key
 )
 
   SELECT

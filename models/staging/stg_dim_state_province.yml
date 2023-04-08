@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_dim_state_province
+    columns:
+      - name: country_key
+        tests:
+          - relationships:
+              to: ref('stg_dim_country')
+              field: country_key

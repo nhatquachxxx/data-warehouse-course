@@ -31,6 +31,9 @@ models:
       - name: customer_category_key
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_customer_category')
+              field: customer_category_key
  
       - name: customer_category_name
         tests:
@@ -39,6 +42,9 @@ models:
       - name: buying_group_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_buying_group')
+              field: buying_group_key
  
       - name: buying_group_name
         tests:
@@ -47,6 +53,9 @@ models:
       - name: primary_contact_person_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_person')
+              field: person_key
  
       - name: primary_contact_full_name
         tests:
@@ -55,6 +64,9 @@ models:
       - name: alternate_contact_person_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_person')
+              field: person_key
  
       - name: alternate_contact_full_name
         tests:
@@ -63,6 +75,9 @@ models:
       - name: delivery_method_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_delivery_method')
+              field: delivery_method_key
  
       - name: delivery_method_name
         tests:
@@ -71,6 +86,9 @@ models:
       - name: delivery_city_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_city')
+              field: city_key
  
       - name: delivery_city_name
         tests:

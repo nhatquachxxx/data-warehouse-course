@@ -32,6 +32,9 @@ models:
       - name: supplier_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: supplier_key
 
       - name: supplier_name
         tests:
@@ -72,6 +75,9 @@ models:
       - name: color_key
         tests:
           - not_null
+          - relationships:
+              to: ref('stg_dim_color')
+              field: color_key
 
       - name: color_name
         tests:
@@ -80,6 +86,9 @@ models:
       - name: unit_package_type_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_package_type')
+              field: package_type_key
 
       - name: unit_package_type_name
         tests:
@@ -88,6 +97,9 @@ models:
       - name: outer_package_type_key
         tests:
           - not_null
+          - relationships:
+              to: ref('dim_package_type')
+              field: package_type_key
 
       - name: outer_package_type_name
         tests:
