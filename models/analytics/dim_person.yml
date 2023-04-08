@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_person
+    columns:
+      - name: person_key
+        tests:
+          - not_null
+
+      - name: full_name
+        tests:
+          - not_null
+
+      - name: preferred_name
+        tests:
+          - not_null
+
+      - name: is_permitted_to_logon
+        tests:
+          - not_null
+
+      - name: is_system_user
+        tests:
+          - not_null
+
+      - name: is_employee
+        tests:
+          - not_null
+
+      - name: is_salesperson
+        tests:
+          - not_null

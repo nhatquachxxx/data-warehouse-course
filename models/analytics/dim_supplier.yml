@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: dim_supplier
+    columns:
+      - name: supplier_key
+        tests:
+          - not_null
+
+      - name: supplier_name
+        tests:
+          - not_null
+
+      - name: supplier_category_key
+        tests:
+          - not_null
+
+      - name: supplier_category_name
+        tests:
+          - not_null
+
+      - name: primary_contact_person_key
+        tests:
+          - not_null
+
+      - name: primary_contact_full_name
+        tests:
+          - not_null
+
+      - name: alternate_contact_person_key
+        tests:
+          - not_null
+
+      - name: alternate_contact_full_name
+        tests:
+          - not_null
+
+      - name: delivery_method_key
+        tests:
+          - not_null
+
+      - name: delivery_method_name
+        tests:
+          - not_null
+
+      - name: delivery_city_key
+        tests:
+          - not_null
+
+      - name: city_name
+        tests:
+          - not_null
+
+      - name: state_province_key
+        tests:
+          - not_null
+
+      - name: state_province_name
+        tests:
+          - not_null
+
+      - name: sales_territory
+        tests:
+          - not_null
+
+      - name: country_key
+        tests:
+          - not_null
+
+      - name: country_name
+        tests:
+          - not_null
+
+      - name: country_type
+        tests:
+          - not_null
+
+      - name: continent_name
+        tests:
+          - not_null
+
+      - name: region_name
+        tests:
+          - not_null
+
+      - name: subregion_name
+        tests:
+          - not_null

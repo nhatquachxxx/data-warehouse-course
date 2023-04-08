@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: dim_city
+    columns:
+      - name: city_key
+        tests:
+          - not_null
+      - name: city_name
+        tests:
+          - not_null
+
+      - name: state_province_key
+        tests:
+          - not_null
+
+      - name: state_province_name
+        tests:
+          - not_null
+
+      - name: sales_territory
+        tests:
+          - not_null
+
+      - name: country_key
+        tests:
+          - not_null
+
+      - name: country_name
+        tests:
+          - not_null
+
+      - name: country_type
+        tests:
+          - not_null
+
+      - name: continent_name
+        tests:
+          - not_null
+
+      - name: region_name
+        tests:
+          - not_null
+
+      - name: subregion_name
+        tests:
+          - not_null

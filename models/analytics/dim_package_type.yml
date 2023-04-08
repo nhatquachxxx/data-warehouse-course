@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: dim_package_type
+    columns:
+      - name: package_type_key
+        tests:
+          - not_null
+
+      - name: package_type_name
+        tests:
+          - not_null

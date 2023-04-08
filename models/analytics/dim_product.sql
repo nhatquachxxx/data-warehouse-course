@@ -143,16 +143,16 @@ SELECT
   , IFNULL(dim_supplier.delivery_method_key, -1) AS delivery_method_key
   , IFNULL(dim_supplier.delivery_method_name, 'Invalid') AS delivery_method_name
   , IFNULL(dim_supplier.delivery_city_key, -1) AS delivery_city_key
-  , IFNULL(dim_supplier.city_name, 'Invalid') AS city_name
-  , IFNULL(dim_supplier.state_province_key, -1) AS state_province_key
-  , IFNULL(dim_supplier.state_province_name, 'Invalid') AS state_province_name
-  , IFNULL(dim_supplier.sales_territory, 'Invalid') AS sales_territory
-  , IFNULL(dim_supplier.country_key, -1) AS country_key
-  , IFNULL(dim_supplier.country_name, 'Invalid') AS country_name
-  , IFNULL(dim_supplier.country_type, 'Invalid') AS country_type
-  , IFNULL(dim_supplier.continent_name, 'Invalid') AS continent_name
-  , IFNULL(dim_supplier.region_name, 'Invalid') AS region_name
-  , IFNULL(dim_supplier.subregion_name, 'Invalid') AS subregion_name
+  , IFNULL(dim_supplier.city_name, 'Invalid') AS delivery_city_name
+  , IFNULL(dim_supplier.state_province_key, -1) AS delivery_state_province_key
+  , IFNULL(dim_supplier.state_province_name, 'Invalid') AS delivery_state_province_name
+  , IFNULL(dim_supplier.sales_territory, 'Invalid') AS delivery_sales_territory
+  , IFNULL(dim_supplier.country_key, -1) AS delivery_country_key
+  , IFNULL(dim_supplier.country_name, 'Invalid') AS delivery_country_name
+  , IFNULL(dim_supplier.country_type, 'Invalid') AS delivery_country_type
+  , IFNULL(dim_supplier.continent_name, 'Invalid') AS delivery_continent_name
+  , IFNULL(dim_supplier.region_name, 'Invalid') AS delivery_region_name
+  , IFNULL(dim_supplier.subregion_name, 'Invalid') AS delivery_subregion_name
   , dim_product.color_key
   , IFNULL(dim_color.color_name, 'Invalid') AS color_name
   , dim_product.unit_package_type_key

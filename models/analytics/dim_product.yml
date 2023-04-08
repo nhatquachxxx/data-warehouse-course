@@ -1,0 +1,137 @@
+# Default key
+version: 2
+
+models:
+  - name: dim_product
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+  
+      - name: product_name
+        tests:
+          - not_null
+
+      - name: brand_name
+        tests:
+          - not_null
+
+      - name: size_name
+        tests:
+          - not_null
+        
+      - name: is_chiller_stock
+        tests:
+          - not_null
+
+      - name: tags
+        tests:
+          - not_null
+        
+      - name: supplier_key
+        tests:
+          - not_null
+
+      - name: supplier_name
+        tests:
+          - not_null
+
+      - name: supplier_category_key
+        tests:
+          - not_null
+
+      - name: supplier_category_name
+        tests:
+          - not_null
+
+      - name: primary_contact_person_key
+        tests:
+          - not_null
+
+      - name: primary_contact_full_name
+        tests:
+          - not_null
+
+      - name: alternate_contact_person_key
+        tests:
+          - not_null
+
+      - name: alternate_contact_full_name
+        tests:
+          - not_null
+
+      - name: delivery_method_key
+        tests:
+          - not_null
+
+      - name: delivery_method_name
+        tests:
+          - not_null
+
+      - name: color_key
+        tests:
+          - not_null
+
+      - name: color_name
+        tests:
+          - not_null
+
+      - name: unit_package_type_key
+        tests:
+          - not_null
+
+      - name: unit_package_type_name
+        tests:
+          - not_null
+
+      - name: outer_package_type_key
+        tests:
+          - not_null
+
+      - name: outer_package_type_name
+        tests:
+          - not_null
+
+      - name: delivery_city_key
+        tests:
+          - not_null
+
+      - name: delivery_city_name
+        tests:
+          - not_null
+
+      - name: delivery_state_province_key
+        tests:
+          - not_null
+
+      - name: delivery_state_province_name
+        tests:
+          - not_null
+
+      - name: delivery_sales_territory
+        tests:
+          - not_null
+
+      - name: delivery_country_key
+        tests:
+          - not_null
+
+      - name: delivery_country_name
+        tests:
+          - not_null
+
+      - name: delivery_country_type
+        tests:
+          - not_null
+
+      - name: delivery_continent_name
+        tests:
+          - not_null
+
+      - name: delivery_region_name
+        tests:
+          - not_null
+
+      - name: delivery_subregion_name
+        tests:
+          - not_null
