@@ -23,25 +23,25 @@ WITH dim_person__source AS(
     , IFNULL(preferred_name, 'Undefined') AS preferred_name
     , CASE
         WHEN is_permitted_to_logon_boolean IS TRUE THEN 'Permitted to Logon'
-        WHEN is_permitted_to_logon_boolean IS FALSE THEN ' Not Permitted to Logon'
+        WHEN is_permitted_to_logon_boolean IS FALSE THEN 'Not Permitted to Logon'
         WHEN is_permitted_to_logon_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid'
       END AS is_permitted_to_logon
     , CASE
         WHEN is_system_user_boolean IS TRUE THEN 'System User'
-        WHEN is_system_user_boolean IS FALSE THEN ' Not System User'
+        WHEN is_system_user_boolean IS FALSE THEN 'Not System User'
         WHEN is_system_user_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid'
       END AS is_system_user
     , CASE
         WHEN is_employee_boolean IS TRUE THEN 'Employee'
-        WHEN is_employee_boolean IS FALSE THEN ' Not Employee'
+        WHEN is_employee_boolean IS FALSE THEN 'Not Employee'
         WHEN is_employee_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid'
       END AS is_employee
     , CASE
         WHEN is_salesperson_boolean IS TRUE THEN 'Salesperson'
-        WHEN is_salesperson_boolean IS FALSE THEN ' Not Salesperson'
+        WHEN is_salesperson_boolean IS FALSE THEN 'Not Salesperson'
         WHEN is_salesperson_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid'
       END AS is_salesperson

@@ -15,8 +15,8 @@ models:
       - name: supplier_category_key
         tests:
           - not_null
-          - relaionships:
-              to: ref(stg_dim_supplier_category')
+          - relationships:
+              to: ref('stg_dim_supplier_category')
               field: supplier_category_key
 
       - name: supplier_category_name
@@ -48,7 +48,7 @@ models:
       - name: delivery_method_key
         tests:
           - not_null
-          - relationship:
+          - relationships:
               to: ref('dim_delivery_method')
               field: delivery_method_key
 
