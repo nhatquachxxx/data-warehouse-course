@@ -1,4 +1,7 @@
 packages:
   - package: calogica/dbt_expectations
-    version: [0.8.2]
+    version: [0.8.5]
     # <see https://github.com/calogica/dbt-expectations/releases/latest> for the latest version tag
+
+  - package: dbt-labs/dbt_utils
+    version: [1.0.0]

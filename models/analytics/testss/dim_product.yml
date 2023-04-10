@@ -3,6 +3,13 @@ version: 2
 
 models:
   - name: dim_product
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: '`vit-lam-data.wide_world_importers.warehouse__stock_items`'
+          config:
+            error_if: "<> 2"
+            warn_if: "<> 2"
+
     columns:
       - name: product_key
         tests:

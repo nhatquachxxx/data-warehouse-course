@@ -2,6 +2,10 @@ version: 2
 
 models:
   - name: fact_sales_order_line
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: "`vit-lam-data.wide_world_importers.sales__order_lines`"
+
     columns:
       - name: sales_order_line_key
         tests:
@@ -71,3 +75,30 @@ models:
       - name: description
         tests:
           - not_null
+
+      - name: order_date
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: "'2013-01-01'"
+              max_value: CURRENT_DATE()
+
+      - name: gross_amount
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "= quantity * unit_price"
+
+      - name: tax_amount
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "= unit_price * quantity * tax_rate"
+
+      - name: net_amount
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "= gross_amount - tax_amount"
+
+      - name: quantity
+        tests:
+          - custom_test_equal_sum:
+              compare_model: "`vit-lam-data.wide_world_importers.sales__order_lines`"
+              compare_column: "quantity"
