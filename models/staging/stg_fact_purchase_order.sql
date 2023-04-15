@@ -22,8 +22,8 @@ WITH fact_purchase_order__source AS (
   SELECT
     *
     , CASE
-        WHEN is_order_finalized_boolean IS TRUE THEN 'Order Finalized'
-        WHEN is_order_finalized_boolean IS FALSE THEN 'Order Not Finalized'
+        WHEN is_order_finalized_boolean IS TRUE THEN 'Finalized Order'
+        WHEN is_order_finalized_boolean IS FALSE THEN 'Not Finalized Order'
         WHEN is_order_finalized_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid' END
       AS is_order_finalized

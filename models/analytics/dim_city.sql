@@ -37,7 +37,7 @@ WITH dim_city__source AS (
   SELECT
     -1 AS city_key
     , 'Invalid' AS city_name
-    , 0 AS state_province_key
+    , -1 AS state_province_key
 )
 
   SELECT

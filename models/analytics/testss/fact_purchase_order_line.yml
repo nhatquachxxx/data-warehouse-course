@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: fact_purchase_order_line
+    columns:
+      - name: purchase_order_line_key
+        tests:
+          - not_null
+          - unique
+
+      - name: purchase_order_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_fact_purchase_order')
+              field: purchase_order_key
+        
+      - name: is_order_finalized
+        tests:
+          - not_null
+          - accepted_values:
+              values: [Order Finalized, Order Not Finalized]
+
+      - name: is_order_line_finalized
+        tests:
+          - not_null
+          - accepted_values:
+              values: [Order Line Finalized, Order Line Not Finalized]
+# product_key
+# package_type_key
+# supplier_key
+# delivery_method_key
+# contact_person_key
+# description
+# supplier_reference
+# comments
+# ordered_outers
+# received_outers
+# remaining_outers
+# expected_unit_price_per_outer
+# last_receipt_date
+# order_date
+# expected_delivery_date

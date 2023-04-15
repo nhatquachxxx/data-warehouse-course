@@ -23,8 +23,8 @@ WITH fact_purchase_order_line__source AS (
   SELECT
     *
     , CASE
-        WHEN is_order_line_finalized_boolean IS TRUE THEN 'Order Line Finalized'
-        WHEN is_order_line_finalized_boolean IS FALSE THEN 'Order Line Not Finalized '
+        WHEN is_order_line_finalized_boolean IS TRUE THEN 'Finalized Order Line'
+        WHEN is_order_line_finalized_boolean IS FALSE THEN 'Not Finalized Order Line'
         WHEN is_order_line_finalized_boolean IS NULL THEN 'Undefined'
         ELSE 'Invalid' END
     AS is_order_line_finalized
