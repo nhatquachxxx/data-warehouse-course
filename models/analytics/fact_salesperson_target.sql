@@ -31,14 +31,13 @@ WITH fact_salesperson_target__source AS (
 
 , fact_salesperson_target__sales_join AS (
   SELECT
-    COALESCE(fact_target.year_month, fact_sales.order_year_month) AS year_month
-    , COALESCE(fact_target.salesperson_person_key, fact_sales.salesperson_person_key) AS salesperson_person_key
-    , fact_target.target_gross_amount
-    , fact_sales.gross_amount
+    year_month -- Vì dùng USING nên BQ sẽ tự COALESCE ở những Join Keys
+    , salesperson_person_key
+    , COALESCE(fact_target.target_gross_amount, 0) AS target_gross_amount
+    , COALESCE(fact_sales.gross_amount, 0) AS gross_amount
   FROM fact_salesperson_target__handle_null AS fact_target
   FULL OUTER JOIN fact_salesperson_target__aggregate_gross AS fact_sales
-    ON fact_target.salesperson_person_key = fact_sales.salesperson_person_key
-    AND fact_target.year_month = fact_sales.order_year_month
+    USING(year_month, salesperson_person_key)
 )
 
 , fact_salesperson_target__calculate_achievement AS (
@@ -47,7 +46,7 @@ WITH fact_salesperson_target__source AS (
     , salesperson_person_key
     , target_gross_amount
     , gross_amount
-    , gross_amount / target_gross_amount AS achievement_percent
+    , gross_amount / NULLIF(target_gross_amount, 0) AS achievement_percent -- Rào NULLIF để tránh trường hợp chia cho 0
   FROM fact_salesperson_target__sales_join
 )
 
@@ -56,7 +55,8 @@ WITH fact_salesperson_target__source AS (
     , salesperson_person_key
     , target_gross_amount
     , gross_amount
-    ,  CONCAT( ROUND( achievement_percent * 100, 2 ), '%' ) AS achievement_percent
+    , achievement_percent
+    , CONCAT( ROUND( achievement_percent * 100, 2 ), '%' ) AS achievement_percent_formatted
     , CASE
         WHEN achievement_percent >= 0.8 THEN 'Achieved'
         WHEN achievement_percent < 0.8 THEN 'Not Achieved'

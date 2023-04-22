@@ -42,21 +42,21 @@ WITH fact_sales_order_line__source AS (
     , unit_price
     , tax_rate
     , quantity * unit_price AS gross_amount
-    , unit_price * quantity * tax_rate AS tax_amount
-    , (quantity * unit_price) - (unit_price * quantity * tax_rate) AS net_amount -- net_amount = gross_amount - tax_amount
+    , unit_price * quantity * tax_rate / 100 AS tax_amount
+    , (quantity * unit_price) - (unit_price * quantity * tax_rate / 100) AS net_amount -- net_amount = gross_amount - tax_amount
     , picking_completed_when
   FROM fact_sales_order_line__handle_null
 )
 
 SELECT
   fact_order_line.sales_order_line_key
+  , fact_order_line.sales_order_key
   , FARM_FINGERPRINT(
       CONCAT(
         IFNULL(fact_order.is_undersupply_backordered, 'Invalid')
         , ','
         , fact_order_line.package_type_key
   )) AS sales_order_line_indicator_key
-  , fact_order_line.sales_order_key
   , fact_order_line.product_key
   , IFNULL(fact_order.backorder_order_key, -1) AS backorder_order_key
   , IFNULL(fact_order.customer_key, -1) AS customer_key
