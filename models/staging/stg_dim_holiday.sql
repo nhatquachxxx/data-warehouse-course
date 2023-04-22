@@ -15,7 +15,7 @@ WITH dim_holiday__source AS (
 )
 
 SELECT
-  FORMAT_DATE('%Y%m%d', holiday_date) AS holiday_date
+  holiday_date
   , CASE
       WHEN holiday_name = 'Tet holiday' THEN 'Tet Holiday'
       ELSE holiday_name END

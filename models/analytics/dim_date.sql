@@ -1,12 +1,12 @@
 WITH dim_date__generate AS (
   SELECT
     *
-  FROM UNNEST(GENERATE_DATE_ARRAY('2009-01-01','2030-12-31',interval 1 day)) AS date
+  FROM UNNEST(GENERATE_DATE_ARRAY('2010-01-01','2030-12-31',interval 1 day)) AS date
 )
 
 , dim_date__extract_components AS (
   SELECT
-    FORMAT_DATE('%Y%m%d',date) AS date
+    CAST(date AS date) AS date
     , FORMAT_DATE('%A',date) AS day_of_week
     , FORMAT_DATE('%a',date) AS day_of_week_short
     , EXTRACT(ISOWEEK FROM date) AS week_number
