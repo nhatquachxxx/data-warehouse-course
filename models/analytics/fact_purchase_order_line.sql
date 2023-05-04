@@ -1,3 +1,4 @@
+-- Fact table coming from Purchase Order process
 WITH fact_purchase_order_line__source AS (
   SELECT
     *

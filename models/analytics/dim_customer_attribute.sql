@@ -1,3 +1,4 @@
+-- Customer dimension include segmentation attributes from fact sales order table
 WITH dim_customer_attribute__aggregate_metric AS (
   SELECT
     customer_key

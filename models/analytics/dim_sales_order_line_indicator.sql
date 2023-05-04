@@ -1,3 +1,4 @@
+-- Junk dimension that combines Fact boolean attributes & dimension table with too few attributes
 WITH dim_sales_order_line_indicator__generate AS (
   SELECT
     'Undersupply Backordered' AS is_undersupply_backordered

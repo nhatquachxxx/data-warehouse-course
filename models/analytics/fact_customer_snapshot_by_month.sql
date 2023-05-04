@@ -1,3 +1,4 @@
+-- Periodic Snapshot by Customer & Order Month
 WITH fact_customer_snapshot_by_month__aggregate_sales AS (
   SELECT
     customer_key

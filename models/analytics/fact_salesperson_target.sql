@@ -1,3 +1,4 @@
+-- Fact table compare sales target with actual sales. Actual sales is indicated by gross_amount
 WITH fact_salesperson_target__source AS (
   SELECT
     *
