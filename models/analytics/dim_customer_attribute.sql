@@ -58,5 +58,14 @@ WITH dim_customer_attribute__aggregate_metric AS (
 )
 
 SELECT
-  *
+  customer_key
+  , start_month
+  , end_month
+  , lifetime_monetary_amount
+  , lifetime_sales_order_quantity
+  , lifetime_monetary_segment
+  , lastmonth_monetary_amount
+  , lastmonth_sales_order_quantity
+  , lastmonth_item_quantity
+  , lastmonth_monetary_segment
 FROM dim_customer_attribute__segmentation

@@ -14,7 +14,7 @@ You can find the diagrams at [`diagrams`](diagrams).
 
 You can find data models at [`models/analytics`](models/analytics).
 
-You can find data quality tests at [`tests`](tests).
+You can find data quality tests at [`testss`](models\analytics\testss).
 
 ## Modules that I implemented
 
