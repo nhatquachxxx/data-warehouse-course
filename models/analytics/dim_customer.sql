@@ -6,7 +6,7 @@ WITH dim_customer__source AS (
 
 , dim_customer__rename_recast AS (
   SELECT
-    CAST(customer_id AS INT) AS customer_key
+    CAST(customer_id AS INT) AS customer_id
     , CAST(customer_name AS STRING) AS customer_name
     , CAST(is_statement_sent AS BOOLEAN) AS is_statement_sent_boolean
     , CAST(is_on_credit_hold AS BOOLEAN) AS is_on_credit_hold_boolean
@@ -44,7 +44,7 @@ WITH dim_customer__source AS (
 
 , dim_customer__handle_null AS (
   SELECT
-    customer_key
+    customer_id
     , customer_name
     , is_statement_sent
     , is_on_credit_hold
@@ -64,7 +64,7 @@ WITH dim_customer__source AS (
 
 , dim_customer__add_undefined AS (
   SELECT
-    customer_key
+    customer_id
     , customer_name
     , is_statement_sent
     , is_on_credit_hold
@@ -83,7 +83,7 @@ WITH dim_customer__source AS (
 
   UNION ALL
   SELECT
-    0 AS customer_key
+    0 AS customer_id
     , 'Undefined' AS customer_name
     , 'Undefined' AS is_statement_sent
     , 'Undefined' AS is_on_credit_hold
@@ -101,8 +101,8 @@ WITH dim_customer__source AS (
 
   UNION ALL
   SELECT
-    -1 AS customer_key
-    , 'Invalid' AS customer_nam
+    -1 AS customer_id
+    , 'Invalid' AS customer_name
     , 'Invalid' AS is_statement
     , 'Invalid' AS is_on_credit
     , NULL AS payment_days
@@ -119,13 +119,21 @@ WITH dim_customer__source AS (
 )
 
 SELECT
-  dim_customer.customer_key
+  CASE
+    WHEN dim_customer.customer_id = 0 THEN 0
+    WHEN dim_customer.customer_id = -1 THEN -1
+    ELSE FARM_FINGERPRINT(dim_customer.customer_id || dim_membership.membership || dim_membership.begin_effective_date) END
+   AS customer_key
+  , dim_customer.customer_id
   , dim_customer.customer_name
   , dim_customer.is_statement_sent
   , dim_customer.is_on_credit_hold
   , dim_customer.payment_days
   , dim_customer.credit_limit
   , dim_customer.standard_discount_percentage
+  , dim_membership.membership
+  , dim_membership.begin_effective_date
+  , dim_membership.end_effective_date
   , dim_customer.bill_to_customer_key
   , IFNULL(dim_customer_bill_to.customer_name, 'Invalid') AS bill_to_customer_name
   , dim_customer.customer_category_key
@@ -153,7 +161,7 @@ SELECT
 FROM dim_customer__add_undefined AS dim_customer
 
 LEFT JOIN dim_customer__add_undefined AS dim_customer_bill_to
-  ON dim_customer.bill_to_customer_key = dim_customer_bill_to.customer_key
+  ON dim_customer.bill_to_customer_key = dim_customer_bill_to.customer_id
 
 LEFT JOIN {{ ref('stg_dim_customer_category') }} AS dim_customer_category
   ON dim_customer.customer_category_key = dim_customer_category.customer_category_key
@@ -172,3 +180,6 @@ LEFT JOIN {{ ref('dim_delivery_method') }} AS dim_delivery_method
 
 LEFT JOIN {{ ref('dim_city') }} AS dim_city_delivery
   ON dim_customer.delivery_city_key = dim_city_delivery.city_key
+
+LEFT JOIN {{ ref('dim_customer_membership') }} AS dim_membership
+  ON dim_customer.customer_id = dim_membership.customer_id

@@ -57,7 +57,7 @@ LEFT JOIN dim_product_category__add_undefined AS parent
   ON category.parent_category_key = parent.category_key
 )
 
--- Separate multiple columns for reporting purpose
+-- Separate multiple category columns for reporting purpose
 SELECT
   *
   , category_key AS category_level_1_key
@@ -118,3 +118,49 @@ LEFT JOIN dim_category_add_parent_name AS l3
 LEFT JOIN dim_category_add_parent_name AS l12
   ON l3.parent_category_key = l12.category_key
 WHERE l4.category_level = 4
+
+-- SELECT
+--   category_level_1_name AS category_name
+--   , SUM(gross_amount)
+-- FROM `atomic-oven-374400.wide_world_importers_dwh.fact_sales_order_line` AS fact_sales
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_product` AS dim_product
+--   ON fact_sales.product_key = dim_product.product_key
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_category` AS dim_category
+--   ON dim_product.category_key = dim_category.category_key
+-- GROUP BY category_name
+
+-- UNION ALL
+-- SELECT
+--   category_level_2_name AS category_name
+--   , SUM(gross_amount)
+-- FROM `atomic-oven-374400.wide_world_importers_dwh.fact_sales_order_line` AS fact_sales
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_product` AS dim_product
+--   ON fact_sales.product_key = dim_product.product_key
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_category` AS dim_category
+--   ON dim_product.category_key = dim_category.category_key
+-- WHERE category_level_2_name <> 'Undefined'
+-- GROUP BY category_name
+
+-- UNION ALL
+-- SELECT
+--   category_level_3_name AS category_name
+--   , SUM(gross_amount)
+-- FROM `atomic-oven-374400.wide_world_importers_dwh.fact_sales_order_line` AS fact_sales
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_product` AS dim_product
+--   ON fact_sales.product_key = dim_product.product_key
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_category` AS dim_category
+--   ON dim_product.category_key = dim_category.category_key
+-- WHERE category_level_3_name <> 'Undefined'
+-- GROUP BY category_name
+
+-- UNION ALL
+-- SELECT
+--   category_level_4_name AS category_name
+--   , SUM(gross_amount)
+-- FROM `atomic-oven-374400.wide_world_importers_dwh.fact_sales_order_line` AS fact_sales
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_product` AS dim_product
+--   ON fact_sales.product_key = dim_product.product_key
+-- LEFT JOIN `atomic-oven-374400.wide_world_importers_dwh.dim_category` AS dim_category
+--   ON dim_product.category_key = dim_category.category_key
+-- WHERE category_level_4_name <> 'Undefined'
+-- GROUP BY category_name

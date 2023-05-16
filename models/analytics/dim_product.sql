@@ -159,10 +159,10 @@ SELECT
   , IFNULL(dim_package_type_unit.package_type_name, 'Invalid') AS unit_package_type_name
   , dim_product.outer_package_type_key
   , IFNULL(dim_package_type_outer.package_type_name, 'Invalid') AS outer_package_type_name
-  , IFNULL(dim_external_product.product_category_key, -1) AS product_category_key
-  , IFNULL(dim_product_category.product_category_name, 'Invalid') AS product_category_name
+  , IFNULL(dim_external_product.category_key, -1) AS category_key
+  , IFNULL(dim_product_category.category_name, 'Invalid') AS category_name
   , IFNULL(dim_product_category.parent_category_key, -1) AS parent_category_key
-  , IFNULL(dim_parent_category.product_category_name, 'Invalid') AS parent_category_name
+  , IFNULL(dim_parent_category.category_name, 'Invalid') AS parent_category_name
   , IFNULL(dim_product_category.category_level, -1) AS category_level
 FROM dim_product__add_undefined AS dim_product
 
@@ -181,9 +181,9 @@ LEFT JOIN {{ ref('dim_package_type') }} AS dim_package_type_outer
 LEFT JOIN {{ ref ('stg_dim_external_product') }} AS dim_external_product
   ON dim_product.product_key = dim_external_product.product_key
 
-LEFT JOIN {{ ref('stg_dim_product_category') }} AS dim_product_category
-  ON dim_external_product.product_category_key = dim_product_category.product_category_key
+LEFT JOIN {{ ref('dim_category') }} AS dim_product_category
+  ON dim_external_product.category_key = dim_product_category.category_key
 
 -- join với dim_product_category lần nữa để retrieve parent category key/name
-LEFT JOIN {{ ref('stg_dim_product_category') }} AS dim_parent_category
-  ON dim_product_category.parent_category_key = dim_parent_category.product_category_key
+LEFT JOIN {{ ref('dim_category') }} AS dim_parent_category
+  ON dim_product_category.parent_category_key = dim_parent_category.category_key
