@@ -119,6 +119,8 @@ LEFT JOIN dim_category_add_parent_name AS l12
   ON l3.parent_category_key = l12.category_key
 WHERE l4.category_level = 4
 
+--Muốn dùng Recursive thì không lấy parent để self-join nữa, mà phải join từ phía tập con
+
 -- SELECT
 --   category_level_1_name AS category_name
 --   , SUM(gross_amount)
