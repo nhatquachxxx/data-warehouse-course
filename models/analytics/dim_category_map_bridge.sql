@@ -5,7 +5,7 @@ WITH dim_category_map_bridge__generate AS (
   -- WHERE category_name IN ('Food', 'Biscuits', 'Candy', 'Butter Biscuits', 'Cheese Biscuits', 'Cookies Biscuits')
 )
 
-/* Created from category_key & parent_category_key in dim_category. This one does not require to add level columns in dim hierarchy */
+/* Created from category_key & parent_category_key in dim_category. This one does not require to add level columns in dim hierarchy aaaa*/
   SELECT --depth distance = 0
     category_name AS parent_category
     , category_name AS child_category
